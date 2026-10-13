@@ -57,6 +57,9 @@ public class JdbcRunner {
         List<Long> result = new ArrayList<>();
         try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setFetchSize(50);
+            preparedStatement.setQueryTimeout(10);
+            preparedStatement.setLargeMaxRows(100);
             System.out.println(preparedStatement);
             preparedStatement.setTimestamp(1, Timestamp.valueOf(start));
             System.out.println(preparedStatement);
